@@ -10,14 +10,23 @@ function LunchCheckControllerFunc($scope) {
     $scope.msg = "";
     $scope.checkCount = function() {
         var input = $scope.lunchItems.trim();
-        var count = $scope.lunchItems.split(",").length;
-        console.log(count);
-        if (!!input && count <=3 && count > 0) {
+        var items = input.split(",");
+        var validItems = new Array();
+        for (var i = 0; i < items.length; i++) {
+            var item = items[i];
+            if (item.trim().length > 0) {
+                validItems.push(item);
+                console.log("items" + i + ":" + item);
+            }
+        }
+        var count = validItems.length;
+        console.log("valid count:"+count);
+        if (count <=3 && count > 0) {
             $scope.msg =   "Enjoy!"
-        } else if (!!input && count >= 4) {
+        } else if (count >= 4) {
             $scope.msg = "Too Much!";
         } else {
-            $scope.msg = "";
+            $scope.msg = "Please enter data first";
         }
     }
 }
